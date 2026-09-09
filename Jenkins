@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Make Executable') {
+            steps {
+                sh 'chmod +x hello.sh'
+            }
+        }
+
+        stage('Run Script') {
+            steps {
+                sh './hello.sh'
+            }
+        }
+    }
+}
