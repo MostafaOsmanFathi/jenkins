@@ -14,4 +14,21 @@ pipeline {
             }
         }
     }
+post {
+        always {
+            echo 'This always runs.'
+        }
+        success {
+            echo 'This runs on success.'
+        }
+        failure {
+            echo 'This runs on failure.'
+        }
+        unstable {
+            echo 'This runs if the build is unstable.'
+        }
+        changed {
+            echo 'This runs if the build status changes.'
+        }
+    }
 }
