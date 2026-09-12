@@ -41,10 +41,13 @@ pipeline{
         }
 
         stage("build image"){
+            steps{
             sh '''
                 docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
 
             '''
+            }
+           
 
         }
         stage("push image"){
