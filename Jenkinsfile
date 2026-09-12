@@ -65,7 +65,7 @@ pipeline{
             echo "========always========"
         }
         success{
-           steps{
+           
                 sh '''
                     docker run -d \
                     --name test-container \
@@ -88,7 +88,7 @@ pipeline{
                 sh '''
                     docker rm test-container
                 '''
-           }
+           
         }
         failure{
             echo "========pipeline execution failed========"
