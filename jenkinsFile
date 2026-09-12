@@ -1,0 +1,61 @@
+pipeline{
+    agent{
+        label "node"
+    }
+
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['dev', 'staging', 'production'],
+            description: 'Select the environment'
+        )
+    }
+
+    stages{
+        stage("Init"){
+            steps{
+                sh '''
+                    terraform init
+                '''
+            }
+            
+        }
+
+          stage("workspace create if not exists "){
+            steps{
+                sh '''
+                    terraform workspace new $ENVIRONMENT
+                '''
+            }
+
+            stage("workspace select"){
+            steps{
+                sh '''
+                    terraform workspace select $ENVIRONMENT
+                '''
+            }
+            
+          stage("Approval") {
+            steps {
+                input(
+                    message: 'Do you want to continue?',
+                    ok: 'Approve'
+                         )
+            }
+}
+
+            
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
