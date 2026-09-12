@@ -65,7 +65,30 @@ pipeline{
             echo "========always========"
         }
         success{
-            echo "========pipeline executed successfully ========"
+           steps{
+                sh '''
+                    docker run -d \
+                    --name test-container \
+                    -p 5000:5000 \
+                    mostafaosmanfathi/${IMAGE_NAME}:${BUILD_NUMBER}
+                '''
+
+                sh '''
+                    sleep 3
+                '''
+
+                sh '''
+                    curl -f -I http://localhost:5000
+                '''
+
+                sh '''
+                    docker stop test-container
+                '''
+
+                sh '''
+                    docker rm test-container
+                '''
+           }
         }
         failure{
             echo "========pipeline execution failed========"
