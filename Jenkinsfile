@@ -71,7 +71,11 @@ pipeline {
         }
 
         success {
-            echo "======== pipeline executed successfully ========"
+            emailext(
+    subject: "Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER} SUCCESS",
+    body: "Build ${env.BUILD_NUMBER} completed successfully.",
+    to: "${env.MAIL_TO}"
+)
         }
 
         failure {
