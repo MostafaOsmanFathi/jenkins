@@ -43,7 +43,7 @@ pipeline{
         stage("build image"){
             steps{
             sh '''
-                docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                docker build -t mostafaosmanfathi/${IMAGE_NAME}:${BUILD_NUMBER} .
 
             '''
             }
