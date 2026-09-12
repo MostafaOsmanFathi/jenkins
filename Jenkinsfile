@@ -1,6 +1,9 @@
 pipeline {
-       agent any
+    agent any
 
+    environment {
+        MAIL_TO = 'mostafa.osman.fathi@gmail.com'
+    }
 
     parameters {
         choice(
@@ -72,7 +75,11 @@ pipeline {
         }
 
         failure {
-            echo "======== pipeline execution failed ========"
+            emailext(
+                subject: "Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER} FAILED",
+                body: "Build ${env.BUILD_NUMBER} failed.",
+                to: "${env.MAIL_TO}"
+            )
         }
     }
 }
