@@ -48,10 +48,12 @@ pipeline{
 
         }
         stage("push image"){
+            steps{
             sh '''
                 docker push ${IMAGE_NAME}:${BUILD_NUMBER}
 
             '''
+            } 
 
         }
     }
