@@ -55,6 +55,7 @@ pipeline {
         stage("Apply") {
             steps {
                 sh '''
+                    terraform init
                     terraform apply --var-file=$ENVIRONMENT.tfvars --auto-approve
                 '''
             }
